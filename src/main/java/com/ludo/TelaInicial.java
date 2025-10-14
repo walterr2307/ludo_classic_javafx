@@ -22,13 +22,15 @@ public class TelaInicial extends Application {
     }
 
     private Jogador[] gerarJogadores(int qtd_jogs, String cor_inicial) {
-        int indice = 0;
+        int indice = 3;
         Jogador[] jogs = new Jogador[qtd_jogs];
         String[] cores = {"Vermelho", "Verde", "Amarelo", "Azul"};
 
-        for (int i = 0; i < 4; i++) {
-            if (cor_inicial.equals(cores[i]))
+        for (int i = 0; i < 3; i++) {
+            if (cor_inicial.equals(cores[i])) {
                 indice = i;
+                break;
+            }
         }
 
         for (int i = 0; i < qtd_jogs; i++) {
@@ -59,7 +61,7 @@ public class TelaInicial extends Application {
         layout.getChildren().addAll(lblTitulo, comboCores, btnConfirmar);
 
         Scene scene = new Scene(layout, 300, 200);
-        stage.setTitle("Seleção de Cor Inicial");
+        stage.setTitle("Cor inicial:");
         stage.setScene(scene);
         stage.show();
     }
@@ -82,6 +84,7 @@ public class TelaInicial extends Application {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 300, 200);
+        stage.setTitle("Número de jogadores:");
         stage.setScene(scene);
         stage.show();
     }

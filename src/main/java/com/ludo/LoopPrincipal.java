@@ -90,6 +90,6 @@ public class LoopPrincipal {
 
     private void verificarFinalizarPrograma() {
         if (!stage.isShowing())
-            System.exit(1);
+            System.exit(0);
     }
 }
