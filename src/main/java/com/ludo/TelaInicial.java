@@ -33,12 +33,8 @@ public class TelaInicial extends Application {
             }
         }
 
-        for (int i = 0; i < qtd_jogs; i++) {
-            if (qtd_jogs == 4)
-                jogs[i] = gerarJogador(cores[(indice + i) % 4]);
-            else
-                jogs[i] = gerarJogador(cores[(indice + i * 2) % 4]);
-        }
+        for (int i = 0; i < qtd_jogs; i++)
+            jogs[i] = gerarJogador(cores[(indice + i * 4 / qtd_jogs) % 4]);
 
         return jogs;
     }
