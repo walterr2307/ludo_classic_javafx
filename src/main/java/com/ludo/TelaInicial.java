@@ -58,6 +58,7 @@ public class TelaInicial extends Application {
 
         Scene scene = new Scene(layout, 300, 200);
         stage.setTitle("Cor inicial:");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
@@ -81,6 +82,7 @@ public class TelaInicial extends Application {
 
         Scene scene = new Scene(layout, 300, 200);
         stage.setTitle("Número de jogadores:");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
