@@ -16,8 +16,9 @@ public class LoopPrincipal {
     public LoopPrincipal(Jogador[] jogs, Stage stage) {
         this.jogs = jogs;
         this.stage = stage;
-        qtd_jogs = jogs.length;
-        indice = qtd_jogs - 1;
+        this.qtd_jogs = jogs.length;
+        this.indice = qtd_jogs - 1;
+        this.jog = jogs[indice];
     }
 
     public static void setTempoEspera(int tempo_espera) {
@@ -33,41 +34,40 @@ public class LoopPrincipal {
     }
 
     public void comecarLoop(EncontroPecas encontro) {
-        while (true) {
+        while (!jog.verificarGanhou()) {
             indice = (indice + 1) % qtd_jogs;
             jog = jogs[indice];
 
-            tabuleiro.ativarBotaoDado(jog.getCorHexadecimal());
+            esperarGirarDado();
 
-            while (tabuleiro.getBotaoAtivado()) {
-                verificarFinalizarPrograma();
-                esperar(25);
-            }
-
-            if (!jog.verificarJogadasDisponiveis()) {
+            if (jog.verificarJogadasDisponiveis()) {
+                jog.ajustarOrdemVisualizacao(-0.25f);
+                jog.ativarBotoes(true);
+                peca = getPecaEscolhida();
+                jog.ativarBotoes(false);
+                esperar(tempo_espera);
+                encontro.verificarAtaque(peca);
+                jog.ajustarOrdemVisualizacao(0f);
+                verificarJogarNovamente(tabuleiro.getValorDado());
+            } else {
                 esperar(500);
-                continue;
             }
-
-            jog.ajustarOrdemVisualizacao(-0.25f);
-            jog.ativarBotoes(true);
-            peca = getPecaEscolhida();
-            jog.ativarBotoes(false);
-            esperar(tempo_espera);
-            encontro.verificarAtaque(peca);
-            jog.ajustarOrdemVisualizacao(0f);
-
-            if (jog.verificarGanhou())
-                break;
-
-            verificarJogarNovamente(tabuleiro.getValorDado());
         }
-        esperar(500);
+        esperar(750);
 
         Platform.runLater(() -> {
             stage.close();
             Main.finalizarJogo(jog);
         });
+    }
+
+    private void esperarGirarDado() {
+        tabuleiro.ativarBotaoDado(jog.getCorHexadecimal());
+
+        while (tabuleiro.getBotaoAtivado()) {
+            verificarFinalizarPrograma();
+            esperar(25);
+        }
     }
 
     private void verificarJogarNovamente(int valor_dado) {
