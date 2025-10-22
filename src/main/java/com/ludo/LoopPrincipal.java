@@ -19,6 +19,7 @@ public class LoopPrincipal {
         this.qtd_jogs = jogs.length;
         this.indice = qtd_jogs - 1;
         this.jog = jogs[indice];
+        this.peca = jog.getPeca(indice);
     }
 
     public static void setTempoEspera(int tempo_espera) {
@@ -35,30 +36,32 @@ public class LoopPrincipal {
 
     public void comecarLoop(EncontroPecas encontro) {
         while (!jog.verificarGanhou()) {
-            indice = (indice + 1) % qtd_jogs;
-            jog = jogs[indice];
-
+            ajustarJogador(tabuleiro.getValorDado());
             esperarGirarDado();
 
             if (jog.verificarJogadasDisponiveis()) {
                 jog.ajustarOrdemVisualizacao(-0.25f);
                 jog.ativarBotoes(true);
-                peca = getPecaEscolhida();
+                ajustarPecaEscolhida();
                 jog.ativarBotoes(false);
                 esperar(tempo_espera);
                 encontro.verificarAtaque(peca);
                 jog.ajustarOrdemVisualizacao(0f);
-                verificarJogarNovamente(tabuleiro.getValorDado());
             } else {
                 esperar(500);
             }
         }
         esperar(750);
+        fecharTela();
+    }
 
-        Platform.runLater(() -> {
-            stage.close();
-            Main.finalizarJogo(jog);
-        });
+    private void ajustarJogador(int valor_dado) {
+        if (valor_dado == 6 || peca.getJogarNovamente()) {
+            peca.setJogarNovamente(false);
+        } else {
+            indice = (indice + 1) % qtd_jogs;
+            jog = jogs[indice];
+        }
     }
 
     private void esperarGirarDado() {
@@ -70,26 +73,22 @@ public class LoopPrincipal {
         }
     }
 
-    private void verificarJogarNovamente(int valor_dado) {
-        if (valor_dado == 6 || peca.getJogarNovamente()) {
-            peca.setJogarNovamente(false);
-            --indice;
-        }
-    }
-
-    private Peca getPecaEscolhida() {
-        Peca peca;
-
+    private void ajustarPecaEscolhida() {
         while ((peca = jog.getPecaEscolhida()) == null) {
             verificarFinalizarPrograma();
             esperar(25);
         }
-
-        return peca;
     }
 
     private void verificarFinalizarPrograma() {
         if (!stage.isShowing())
             System.exit(0);
+    }
+
+    private void fecharTela() {
+        Platform.runLater(() -> {
+            stage.close();
+            Main.finalizarJogo(jog);
+        });
     }
 }

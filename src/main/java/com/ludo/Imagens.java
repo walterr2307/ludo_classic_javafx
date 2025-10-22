@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 public class Imagens {
-    private int valor_dado;
+    private int valor_dado = 0;
     private final float largura = Main.getLargura(), altura = Main.getAltura();
     private final Pane root = Main.getRoot();
     private ImageView img_dado;

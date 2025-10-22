@@ -128,4 +128,8 @@ public abstract class Jogador {
     public Image getImgEncontro(int i) {
         return imgs_encontro[i];
     }
+
+    public Peca getPeca(int i) {
+        return pecas[i];
+    }
 }
