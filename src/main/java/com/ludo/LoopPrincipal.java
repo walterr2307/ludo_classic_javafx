@@ -45,7 +45,7 @@ public class LoopPrincipal {
                 ajustarPecaEscolhida();
                 jog.ativarBotoes(false);
                 esperar(tempo_espera);
-                encontro.verificarAtaque(peca);
+                encontro.verificarAtaque(jog, peca);
                 jog.ajustarOrdemVisualizacao(0f);
             } else {
                 esperar(500);

@@ -32,9 +32,9 @@ public class EncontroPecas {
             casa = casas_principais[peca.getPosicao()];
     }
 
-    public void verificarAtaque(Peca peca) {
+    public void verificarAtaque(Jogador jog, Peca peca) {
         if (!peca.getTipoPosicao().equals("linha_chegada")) {
-            definirCasa(peca.getJogador(), peca);
+            definirCasa(jog, peca);
 
             if (verificarZonaAtaque(peca.getPosicao(), peca.getTipoPosicao(), peca.getCor()))
                 comecarAtaque(peca, casa.getFirst());
@@ -70,39 +70,38 @@ public class EncontroPecas {
         return qtd_pecas_amigas == 0 && qtd_pecas_inimigas == 1;
     }
 
-    private void comecarAtaque(Peca peca, Peca peca_atacada) {
-        peca.setJogarNovamente(true);
-        casa.remove(peca_atacada);
-        adicionarPeca(peca);
-        mov.moverSemPulo(peca_atacada);
-    }
-
     private void ajustarImagem() {
         int[] num_pecas = {0, 0, 0, 0};
 
         if (casa.size() == 1) {
             casa.getFirst().trocarImagem(true, 0);
-            return;
-        }
-
-        for (Peca peca : casa) {
-            switch (peca.getCor()) {
-                case "vermelho":
-                    peca.trocarImagem(false, num_pecas[0]);
-                    ++num_pecas[0];
-                    break;
-                case "verde":
-                    peca.trocarImagem(false, num_pecas[1]);
-                    ++num_pecas[1];
-                    break;
-                case "amarelo":
-                    peca.trocarImagem(false, num_pecas[2]);
-                    ++num_pecas[2];
-                    break;
-                default:
-                    peca.trocarImagem(false, num_pecas[3]);
-                    ++num_pecas[3];
+        } else {
+            for (Peca peca : casa) {
+                switch (peca.getCor()) {
+                    case "vermelho":
+                        peca.trocarImagem(false, num_pecas[0]);
+                        ++num_pecas[0];
+                        break;
+                    case "verde":
+                        peca.trocarImagem(false, num_pecas[1]);
+                        ++num_pecas[1];
+                        break;
+                    case "amarelo":
+                        peca.trocarImagem(false, num_pecas[2]);
+                        ++num_pecas[2];
+                        break;
+                    default:
+                        peca.trocarImagem(false, num_pecas[3]);
+                        ++num_pecas[3];
+                }
             }
         }
+    }
+
+    private void comecarAtaque(Peca peca, Peca peca_atacada) {
+        peca.setJogarNovamente(true);
+        casa.remove(peca_atacada);
+        adicionarPeca(peca);
+        mov.moverSemPulo(peca_atacada);
     }
 }

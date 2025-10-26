@@ -9,6 +9,7 @@ public class Movimento {
     private static Movimento instancia;
     private final Tabuleiro tabuleiro = Tabuleiro.instanciar();
     private EncontroPecas encontro;
+    private final float constante = 4f / Main.getLargura();
     private final float[] x_principais = tabuleiro.getXQuadradosPrincipais(),
             y_principais = tabuleiro.getYQuadradosPrincipais();
 
@@ -119,7 +120,7 @@ public class Movimento {
 
         float dx = peca.getXBase() - x_principais[peca.getPosicao()];
         float dy = peca.getYBase() - y_principais[peca.getPosicao()];
-        float tempo = (float) Math.sqrt(dx * dx + dy * dy) * 0.005f;
+        float tempo = (float) Math.sqrt(dx * dx + dy * dy) * constante;
 
         moverImagem(tempo, dx, dy, peca.getImagem());
         moverBotao(tempo, dx, dy, peca.getBotao());
