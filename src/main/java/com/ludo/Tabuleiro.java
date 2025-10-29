@@ -18,8 +18,16 @@ public class Tabuleiro {
         return instancia;
     }
 
-    public void ativarBotaoDado(String cor) {
-        imagens.ativarBotaoDado(cor);
+    public void ajustarOpacidade(float opacidade) {
+        imagens.ajustarOpacidade(opacidade);
+    }
+
+    public void ativarBotaoDado(boolean com, String cor) {
+        imagens.ativarBotaoDado(com, cor);
+    }
+
+    public void girarDado(boolean com) {
+        imagens.girarDado(com);
     }
 
     public int getValorDado() {

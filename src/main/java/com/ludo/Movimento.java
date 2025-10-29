@@ -74,7 +74,6 @@ public class Movimento {
         moverBotao(0.5f, dx, dy, btn);
 
         LoopPrincipal.setTempoEspera(750);
-        peca.setPosicao(pos_inicial);
         peca.setTipoPosicao("quad_principal");
     }
 
@@ -125,6 +124,7 @@ public class Movimento {
         moverImagem(tempo, dx, dy, peca.getImagem());
         moverBotao(tempo, dx, dy, peca.getBotao());
         LoopPrincipal.esperar((int) (tempo * 1000f + 250f));
+        peca.setPosicao(peca.getPosicaoInicial());
         peca.getImagem().setViewOrder(0f);
     }
 

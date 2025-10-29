@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 
 public class LoopPrincipal {
     private final Tabuleiro tabuleiro = Tabuleiro.instanciar();
+    private boolean com;
     private static int tempo_espera = 500;
     private final int qtd_jogs;
     private int indice;
@@ -40,8 +41,8 @@ public class LoopPrincipal {
             esperarGirarDado();
 
             if (jog.verificarJogadasDisponiveis()) {
+                verificarPecaUnica();
                 jog.ajustarOrdemVisualizacao(-0.25f);
-                jog.ativarBotoes(true);
                 ajustarPecaEscolhida();
                 jog.ativarBotoes(false);
                 esperar(tempo_espera);
@@ -55,6 +56,15 @@ public class LoopPrincipal {
         fecharTela();
     }
 
+    private void verificarPecaUnica() {
+        if (!com) {
+            if (jog.verificarPecaUnica())
+                jog.moverPecaUnica();
+            else
+                jog.ativarBotoes(true);
+        }
+    }
+
     private void ajustarJogador(int valor_dado) {
         if (valor_dado == 6 || peca.getJogarNovamente()) {
             peca.setJogarNovamente(false);
@@ -62,10 +72,13 @@ public class LoopPrincipal {
             indice = (indice + 1) % qtd_jogs;
             jog = jogs[indice];
         }
+
+        com = jog.getComputador();
     }
 
     private void esperarGirarDado() {
-        tabuleiro.ativarBotaoDado(jog.getCorHexadecimal());
+        tabuleiro.ativarBotaoDado(com, jog.getCorHexadecimal());
+        jog.jogarAutomaticamente();
 
         while (tabuleiro.getBotaoAtivado()) {
             verificarFinalizarPrograma();

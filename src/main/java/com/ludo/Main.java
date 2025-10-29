@@ -29,6 +29,7 @@ public class Main {
             LoopPrincipal loop = new LoopPrincipal(jogs, stage);
 
             Movimento.instanciar().setEncontroPecas(encontro);
+            Prioridades.instanciar().setEncontroPecas(encontro);
 
             stage.setScene(scene);
             stage.setResizable(false);

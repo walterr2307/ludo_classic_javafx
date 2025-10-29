@@ -9,8 +9,9 @@ import java.util.Objects;
 
 public abstract class Peca {
     protected Tabuleiro tabuleiro = Tabuleiro.instanciar();
+    protected Movimento mov = Movimento.instanciar();
     protected boolean jogou_agora = false, jogar_dnv = false;
-    protected int pos_atual, pos_inicial = definirPosicaoInicial(), pos_final = definirPosicaoFinal();
+    protected int prioridade, pos_inicial = definirPosicaoInicial(), pos_atual = pos_inicial, pos_final = definirPosicaoFinal();
     protected float x_base, y_base, largura = Main.getLargura(), altura = Main.getAltura();
     protected float[] x_finais = definirXFinais(), y_finais = definirYFinais();
     protected Pane root = Main.getRoot();
@@ -66,8 +67,12 @@ public abstract class Peca {
         btn.setOnMouseEntered(_ -> img.setImage(img_com_fundo));
         btn.setOnMouseExited(_ -> img.setImage(img_sem_fundo));
         btn.setDisable(true);
-        btn.setOnAction(_ -> Movimento.instanciar().mover(this));
+        btn.setOnAction(_ -> mov.mover(this));
         root.getChildren().add(btn);
+    }
+
+    public void mover() {
+        mov.mover(this);
     }
 
     public void ativarBotao(boolean ativar) {
@@ -151,6 +156,14 @@ public abstract class Peca {
 
     public String getCor() {
         return cor;
+    }
+
+    public void setPrioridade(int prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public int getPrioridade() {
+        return prioridade;
     }
 
     public void trocarImagem(boolean original, int i) {

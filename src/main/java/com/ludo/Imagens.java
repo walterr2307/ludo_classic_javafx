@@ -23,11 +23,19 @@ public class Imagens {
         colocarDado();
     }
 
-    private void girarDado() {
+    public void girarDado(boolean com) {
+        btn_dado.setDisable(true);
+
+        if (com)
+            LoopPrincipal.esperar(500);
+
         valor_dado = (int) (Math.random() * 6 + 1);
         img_dado.setImage(imgs_dados[valor_dado - 1]);
         btn_dado.setOpacity(0.5f);
-        btn_dado.setDisable(true);
+    }
+
+    public void ajustarOpacidade(float opacidade) {
+        img_dado.setOpacity(opacidade);
     }
 
     private void colocarPapelParede() {
@@ -99,7 +107,7 @@ public class Imagens {
         try {
             for (int i = 0; i < 6; i++)
                 imgs_dados[i] = new Image(Objects.requireNonNull(getClass().
-                                getResource("/imagens/dado" + (i + 1) + ".png")).toExternalForm());
+                        getResource("/imagens/dado" + (i + 1) + ".png")).toExternalForm());
 
             img_dado = new ImageView(imgs_dados[5]);
             img_dado.setFitWidth(largura / 16f);
@@ -118,7 +126,7 @@ public class Imagens {
             btn_dado.setLayoutX(largura / 16f);
             btn_dado.setLayoutY(altura * (29f / 64f));
             btn_dado.setOpacity(0f);
-            btn_dado.setOnAction(_ -> girarDado());
+            btn_dado.setOnAction(_ -> girarDado(false));
 
             root.getChildren().addAll(fundo_dado, img_dado, btn_dado);
         } catch (NullPointerException e) {
@@ -128,8 +136,10 @@ public class Imagens {
         }
     }
 
-    public void ativarBotaoDado(String cor) {
-        btn_dado.setDisable(false);
+    public void ativarBotaoDado(boolean com, String cor) {
+        if (!com)
+            btn_dado.setDisable(false);
+
         btn_dado.setOpacity(0f);
         fundo_dado.setFill(Color.web(cor));
     }

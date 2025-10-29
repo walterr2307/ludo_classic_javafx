@@ -2,6 +2,10 @@ package com.ludo;
 
 public class JogadorAzul extends Jogador {
 
+    public JogadorAzul(boolean com) {
+        super(com);
+    }
+
     protected String definirCor() {
         return "azul";
     }
