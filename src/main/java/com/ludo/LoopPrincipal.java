@@ -82,14 +82,14 @@ public class LoopPrincipal {
 
         while (tabuleiro.getBotaoAtivado()) {
             verificarFinalizarPrograma();
-            esperar(25);
+            esperar(125);
         }
     }
 
     private void ajustarPecaEscolhida() {
         while ((peca = jog.getPecaEscolhida()) == null) {
             verificarFinalizarPrograma();
-            esperar(25);
+            esperar(125);
         }
     }
 

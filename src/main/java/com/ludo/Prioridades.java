@@ -68,7 +68,7 @@ public class Prioridades {
     }
 
     private boolean verificarZonaPerigosa(boolean casa_segura, int pos, int valor_dado, String cor) {
-        int inicio = casa_segura ? valor_dado - 6 : 0;
+        int inicio = casa_segura ? valor_dado - 5 : 0;
 
         for (int i = inicio; i < valor_dado; i++) {
             if (i < 0)
