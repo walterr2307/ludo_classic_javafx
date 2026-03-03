@@ -41,9 +41,9 @@ public class LoopPrincipal {
 
             if (jog.verificarJogadasDisponiveis()) {
                 verificarPecaUnica();
-                jog.ajustarOrdemVisualizacao(-0.25f);
                 ajustarPecaEscolhida();
                 jog.ativarBotoes(false);
+                jog.ajustarOrdemVisualizacao(-0.25f);
                 esperar(tempo_espera);
                 encontro.verificarAtaque(jog, peca);
                 jog.ajustarOrdemVisualizacao(0f);
@@ -51,6 +51,7 @@ public class LoopPrincipal {
                 esperar(500);
             }
         }
+
         esperar(750);
         fecharTela();
     }
