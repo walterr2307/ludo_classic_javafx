@@ -12,10 +12,7 @@ public abstract class Jogador {
     protected ArrayList<Peca>[] casas = new ArrayList[5];
     protected ArrayList<Peca> pecas_disponiveis = new ArrayList<>();
     protected Tabuleiro tabuleiro = Tabuleiro.instanciar();
-    protected MovimentoInteligente mov_inteligente;
-    protected boolean com;
     protected int indice_img = 0;
-    protected int[] pos_especificas;
     protected float largura = Main.getLargura();
     protected String cor = definirCor(), cor_hexadecimal = definirCorHexadecimal();
     protected Pane root = Main.getRoot();
@@ -29,32 +26,9 @@ public abstract class Jogador {
 
     protected abstract Peca[] gerarPecas();
 
-    public Jogador(boolean com) {
-        this.com = com;
-        this.pos_especificas = gerarPosicoesEspecificas();
-
+    public Jogador() {
         for (int i = 0; i < 5; i++)
             casas[i] = new ArrayList<>();
-    }
-
-    public void jogarAutomaticamente() {
-        if (com)
-            mov_inteligente.mover(pos_especificas, pecas);
-    }
-
-    protected int[] gerarPosicoesEspecificas() {
-        if (com) {
-            this.mov_inteligente = MovimentoInteligente.instanciar();
-            int pos_inicial = pecas[0].getPosicaoInicial();
-            int[] pos_especificas = new int[52];
-
-            for (int i = pos_inicial; i < pos_inicial + 52; i++)
-                pos_especificas[i % 52] = i - pos_inicial;
-
-            return pos_especificas;
-        } else {
-            return null;
-        }
     }
 
     protected Image[] gerarImagensEncontro() {
@@ -136,7 +110,7 @@ public abstract class Jogador {
         for (int i = pecas_disponiveis.size() - 1; i > 0; i--) {
             Peca peca1 = pecas_disponiveis.getFirst(), peca2 = pecas_disponiveis.get(i);
 
-            if (peca1.getPosicao() != peca2.getPosicao() || !peca1.getTipoPosicao().equals(peca2.getTipoPosicao()))
+            if (!(peca1.getPosicao() == peca2.getPosicao() && peca1.getTipoPosicao().equals(peca2.getTipoPosicao())))
                 return false;
         }
 
@@ -162,10 +136,6 @@ public abstract class Jogador {
             pecas[i].ativarBotao(ativar);
     }
 
-    public boolean getComputador() {
-        return com;
-    }
-
     public String getCor() {
         return cor;
     }
@@ -182,7 +152,7 @@ public abstract class Jogador {
         return imgs_encontro[i];
     }
 
-    public Peca getPeca(int i) {
-        return pecas[i];
+    public Peca getPeca() {
+        return pecas[0];
     }
 }

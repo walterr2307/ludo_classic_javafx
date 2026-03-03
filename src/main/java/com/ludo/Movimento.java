@@ -38,9 +38,11 @@ public class Movimento {
                 sairDaBase(peca);
             } else {
                 encontro.removerPeca(peca.getJogador(), peca);
+
                 LoopPrincipal.setTempoEspera(250 + 500 * valor_dado);
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5f),
                         _ -> moverComPulo(peca)));
+
                 timeline.setCycleCount(valor_dado);
                 timeline.play();
             }

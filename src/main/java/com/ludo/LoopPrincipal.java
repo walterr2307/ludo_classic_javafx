@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 public class LoopPrincipal {
     private final Tabuleiro tabuleiro = Tabuleiro.instanciar();
-    private boolean com;
     private static int tempo_espera = 500;
     private final int qtd_jogs;
     private int indice;
@@ -20,7 +19,7 @@ public class LoopPrincipal {
         this.qtd_jogs = jogs.length;
         this.indice = qtd_jogs - 1;
         this.jog = jogs[indice];
-        this.peca = jog.getPeca(indice);
+        this.peca = jog.getPeca();
     }
 
     public static void setTempoEspera(int tempo_espera) {
@@ -57,12 +56,10 @@ public class LoopPrincipal {
     }
 
     private void verificarPecaUnica() {
-        if (!com) {
-            if (jog.verificarPecaUnica())
-                jog.moverPecaUnica();
-            else
-                jog.ativarBotoes(true);
-        }
+        if (jog.verificarPecaUnica())
+            jog.moverPecaUnica();
+        else
+            jog.ativarBotoes(true);
     }
 
     private void ajustarJogador(int valor_dado) {
@@ -72,24 +69,21 @@ public class LoopPrincipal {
             indice = (indice + 1) % qtd_jogs;
             jog = jogs[indice];
         }
-
-        com = jog.getComputador();
     }
 
     private void esperarGirarDado() {
-        tabuleiro.ativarBotaoDado(com, jog.getCorHexadecimal());
-        jog.jogarAutomaticamente();
+        tabuleiro.ativarBotaoDado(jog.getCorHexadecimal());
 
         while (tabuleiro.getBotaoAtivado()) {
             verificarFinalizarPrograma();
-            esperar(125);
+            esperar(100);
         }
     }
 
     private void ajustarPecaEscolhida() {
         while ((peca = jog.getPecaEscolhida()) == null) {
             verificarFinalizarPrograma();
-            esperar(125);
+            esperar(100);
         }
     }
 

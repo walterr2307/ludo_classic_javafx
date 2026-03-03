@@ -32,10 +32,6 @@ public class EncontroPecas {
             casa = casas_principais[peca.getPosicao()];
     }
 
-    public void definirCasa(int pos) {
-        casa = casas_principais[pos];
-    }
-
     public void verificarAtaque(Jogador jog, Peca peca) {
         if (!peca.getTipoPosicao().equals("linha_chegada")) {
             definirCasa(jog, peca);
@@ -72,14 +68,6 @@ public class EncontroPecas {
         }
 
         return qtd_pecas_amigas == 0 && qtd_pecas_inimigas == 1;
-    }
-
-    public boolean verificarInimigos(String cor) {
-        for (Peca peca : casa) {
-            if (!peca.getCor().equals(cor))
-                return true;
-        }
-        return false;
     }
 
     private void ajustarImagem() {
